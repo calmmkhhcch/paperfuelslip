@@ -1,0 +1,1006 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華航A321紙本油單</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft JhengHei', 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #e6e6e6;
+            color: #333;
+            padding: 20px;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border: 1px solid #999;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .print-header {
+            background-color: #f0f0f0;
+            padding: 8px 15px;
+            border-bottom: 1px solid #999;
+            font-size: 14px;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .main-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 18px 0;
+            border-bottom: 2px solid #000;
+            background-color: #f9f9f9;
+        }
+        
+        .china-oil-info {
+            text-align: right;
+            padding: 10px 25px;
+            border-bottom: 1px solid #999;
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        
+        .china-oil-info input {
+            width: 150px;
+            border: 1px solid #999;
+            padding: 6px 10px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .fuel-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        
+        .fuel-table td {
+            border: 1px solid #999;
+            padding: 8px 6px;
+            vertical-align: middle;
+            min-height: 40px;
+            word-wrap: break-word;
+            overflow: visible;
+        }
+        
+        .fuel-table .header-row {
+            background-color: #e9ecef;
+            font-weight: bold;
+            text-align: center;
+            font-size: 11px;
+            padding: 8px 4px;
+            height: 50px;
+            line-height: 1.2;
+        }
+        
+        .fuel-table .sub-header {
+            background-color: #f8f9fa;
+            font-weight: normal;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .fuel-table .section-title {
+            background-color: #e9ecef;
+            font-weight: bold;
+            text-align: center;
+            font-size: 16px;
+            padding: 12px 10px;
+        }
+        
+        .input-cell {
+            padding: 5px 4px !important;
+            background-color: white !important;
+        }
+        
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            border: 1px solid #bbb;
+            border-radius: 3px;
+            outline: none;
+            background-color: white;
+            font-size: 12px;
+            padding: 6px 4px;
+            text-align: center;
+        }
+        
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #003366;
+            box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.1);
+        }
+        
+        .calculation-cell {
+            background-color: #e7f3ff !important;
+            font-weight: bold;
+            text-align: center;
+            font-size: 14px;
+            padding: 10px 4px !important;
+        }
+        
+        .result-cell {
+            background-color: #f0ffe8 !important;
+            font-weight: bold;
+            text-align: center;
+            font-size: 14px;
+            padding: 10px 4px !important;
+        }
+        
+        .small-text {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.3;
+        }
+        
+        .vertical-text-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+        
+        /* 修正REMARK文字樣式 - 與旁邊一樣橫式顯示 */
+        .remark-horizontal {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            line-height: 1.2;
+        }
+        
+        .required-indicator::after {
+            content: " *";
+            color: red;
+            font-size: 12px;
+        }
+        
+        .instructions {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .instructions h3 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 18px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #003366;
+        }
+        
+        .instructions ul {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: 1px solid #999;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            min-width: 140px;
+        }
+        
+        button:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        #calculateBtn {
+            background-color: #003366;
+            color: white;
+            border-color: #003366;
+        }
+        
+        #calculateBtn:hover {
+            background-color: #002244;
+        }
+        
+        #resetBtn {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        #resetBtn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* 修改簽名欄為橫式表格排版 */
+        .signature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-top: 2px solid #999;
+        }
+        
+        .signature-table td {
+            border: 1px solid #999;
+            padding: 15px 10px;
+            vertical-align: top;
+            text-align: left;
+            width: 33.33%; /* 平均分配三欄 */
+        }
+        
+        .signature-table .signature-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .signature-table input {
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #999;
+            padding: 8px 5px;
+            font-size: 15px;
+            background-color: transparent;
+            margin-top: 5px;
+        }
+        
+        .signature-table .no-input {
+            color: #666;
+            padding: 8px 5px;
+            font-style: italic;
+        }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+            
+            .container {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+            
+            input {
+                border: none !important;
+                background-color: transparent !important;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .fuel-table td {
+                padding: 6px 4px;
+            }
+            
+            .signature-table td {
+                padding: 10px 8px;
+            }
+        }
+        
+        /* 調整列寬度 - 重新分配更合理的寬度 */
+        .col-1 { width: 8%; }
+        .col-2 { width: 10%; }
+        .col-3 { width: 10%; }
+        .col-4 { width: 8%; }
+        .col-5 { width: 10%; }
+        .col-6 { width: 8%; }
+        .col-7 { width: 10%; }
+        .col-8 { width: 8%; }
+        .col-9 { width: 10%; }
+        .col-10 { width: 8%; }
+        
+        /* 特殊調整某些欄位 */
+        .tolerance-cell {
+            font-size: 9px;
+            line-height: 1.2;
+            padding: 8px 4px !important;
+        }
+        
+        .tolerance-cell strong {
+            font-size: 10px;
+            display: block;
+            margin-bottom: 3px;
+        }
+        
+        .multi-line {
+            line-height: 1.3;
+            padding: 8px 4px !important;
+            font-size: 11px;
+        }
+        
+        /* 響應式調整 */
+        @media (max-width: 1024px) {
+            .container {
+                overflow-x: auto;
+            }
+            
+            .fuel-table {
+                min-width: 1100px;
+            }
+            
+            .signature-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .signature-table td {
+                min-width: 200px;
+            }
+        }
+        
+        .note-cell {
+            background-color: #fff9e6;
+            font-style: italic;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* 空行樣式 */
+        .empty-row td {
+            border: none;
+            height: 10px;
+            background-color: transparent;
+        }
+        
+        /* 調整"油單有寫照抄"文字大小 */
+        .copy-text {
+            font-size: 9px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            margin-top: 2px;
+            color: #666;
+        }
+        
+        /* 調整MTOW右側單元格 */
+        .mtow-cell {
+            background-color: #f9f9f9;
+            text-align: center;
+            padding: 6px !important;
+        }
+        
+        /* 調整DENSITY輸入框大小 */
+        .density-input {
+            width: 50px !important;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        /* 調整FUEL INFORMATION部分排版 */
+        .fuel-info-left {
+            width: 35%;
+        }
+        
+        .fuel-info-right {
+            width: 65%;
+        }
+        
+        /* DISTRIBUTION表格的特定列寬 */
+        .tank-col {
+            width: 8%;
+        }
+        
+        .required-col {
+            width: 20%;
+        }
+        
+        .remaining-col {
+            width: 20%;
+        }
+        
+        .post-service-col {
+            width: 20%;
+        }
+        
+        .remark-col {
+            width: 12%;
+            padding: 10px 5px !important;
+        }
+        
+        /* 調整需求總油量單元格 */
+        .demand-total {
+            background-color: #f0f0f0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        /* 修正TANK方向 - 改為水平顯示 */
+        .tank-header-horizontal {
+            text-align: center;
+            font-weight: bold;
+            padding: 8px 4px !important;
+            writing-mode: horizontal-tb !important;
+            transform: none !important;
+        }
+        
+        /* 修正需求油量樣式 - 只顯示文字，沒有輸入框 */
+        .demand-cell {
+            text-align: center;
+            padding: 8px 4px !important;
+            background-color: #f9f9f9;
+            font-size: 12px;
+        }
+        
+        /* 合併格子的樣式 */
+        .merged-cell {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        /* 修正REMARK大格子的高度 - 與旁邊六行總高度一致 */
+        .remark-large-cell {
+            height: auto;
+            padding: 0 !important;
+        }
+        
+        /* 調整表格行高 */
+        .fuel-table tr {
+            height: 40px;
+        }
+        
+        .fuel-table .header-row {
+            height: 40px;
+        }
+        
+        /* 新增：合併格子的寬度調整 */
+        .calculated-fuel-merged {
+            width: 48%; /* TANK (8%) + REQUIRED (20%) + REMAINING (20%) = 48% */
+            text-align: center;
+            padding: 8px 4px;
+            font-size: 12px;
+        }
+        
+        .difference-merged {
+            width: 48%; /* TANK (8%) + REQUIRED (20%) + REMAINING (20%) = 48% */
+            text-align: center;
+            padding: 8px 4px;
+            font-size: 12px;
+        }
+        
+        /* 特別調整日期輸入框樣式 */
+        #flightDate {
+            font-size: 11px;
+            padding: 5px 3px;
+        }
+        
+        /* 調整航班資訊行的內邊距 */
+        .flight-info-row td {
+            padding: 6px 3px !important;
+        }
+        
+        /* 調整表頭行的字體大小 */
+        .compact-header {
+            font-size: 10px !important;
+            line-height: 1.1 !important;
+        }
+        
+        /* 圖片中的特定樣式調整 */
+        .fuel-type-cell {
+            font-size: 11px;
+            line-height: 1.2;
+        }
+        
+        .freeze-point-cell {
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* 調整OFP行樣式 */
+        .ofp-row td {
+            padding: 6px 4px !important;
+        }
+        
+        /* 調整簽名欄標籤 */
+        .signature-label {
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="print-header">
+            華航A321燃油計算紙本油單 | 內部使用
+        </div>
+        
+        <div class="main-title">
+            A321 FUEL LOAD & SERVICE RECORD
+        </div>
+        
+        <!-- 修改這裡的文字 -->
+        <div class="china-oil-info">
+            加完油拿到的油單資料: 
+            <input type="number" id="chinaOilLiters" placeholder="輸入加油量(Liters)">
+        </div>
+        
+        <table class="fuel-table">
+            <!-- 航班資訊行 - 調整為圖片中的格式 -->
+            <tr class="flight-info-row">
+                <td class="header-row col-1 compact-header">SCHEDULE<br>DATE</td>
+                <td class="input-cell col-1">
+                    <input type="text" id="flightDate" placeholder="日期" style="font-size: 11px; padding: 5px 2px;">
+                </td>
+                <td class="header-row col-2 compact-header">FLIGHT<br>NO.</td>
+                <td class="input-cell col-2">
+                    <input type="text" id="flightNumber" placeholder="航班號" style="font-size: 11px;">
+                </td>
+                <td class="header-row col-3 compact-header">ACFT<br>NO.</td>
+                <td class="input-cell col-3">
+                    <input type="text" id="aircraftNumber" placeholder="機號" style="font-size: 11px;">
+                </td>
+                <td class="header-row col-4 compact-header">DEP.<br>STN.</td>
+                <td class="input-cell col-4">
+                    <input type="text" id="departure" placeholder="出發地" style="font-size: 11px;">
+                </td>
+                <td class="col-5" style="border-right: none; background-color: #f5f5f5;"></td>
+                <td class="header-row col-6 compact-header">ARR.<br>STN.</td>
+                <td class="input-cell col-6">
+                    <input type="text" id="arrival" placeholder="到達地" style="font-size: 11px;">
+                </td>
+            </tr>
+            
+            <!-- OFP TOTAL FUEL 行 - 調整為圖片中的格式 -->
+            <tr class="ofp-row">
+                <td colspan="2" class="header-row">OFP TOTAL FUEL :</td>
+                <td class="input-cell">
+                    <input type="number" id="ofpTotalFuel" placeholder="輸入油量" style="font-size: 11px;">
+                    <div class="copy-text">油單有寫照抄</div>
+                </td>
+                <td class="small-text multi-line" colspan="2" style="font-size: 10px;">LBS, INCLUDING TAXI FUEL :</td>
+                <td class="input-cell">
+                    <input type="number" id="taxiFuel" placeholder="輸入油量" style="font-size: 11px;">
+                    <div class="copy-text">油單有寫照抄</div>
+                </td>
+                <td class="small-text" style="font-size: 10px;">LBS</td>
+                <td class="header-row" style="font-size: 11px;">METERED FUEL ADDED</td>
+                <td class="result-cell" id="meteredFuelAdded" style="font-size: 12px;">0</td>
+                <td class="small-text" style="font-size: 10px;">US GAL</td>
+                <td></td>
+            </tr>
+            
+            <!-- FINAL FUEL 行 - 調整為圖片中的格式 -->
+            <tr>
+                <td colspan="2" class="header-row">FINAL FUEL :</td>
+                <td class="calculation-cell" id="finalFuel" style="font-size: 12px;">0</td>
+                <td colspan="4" class="small-text multi-line" style="font-size: 10px;">LBS. (ENTER POST-SERVICE TOTAL FOR OPERATION LOG)</td>
+                <td class="small-text" style="font-size: 10px;">□MTOW:</td>
+                <td class="mtow-cell" colspan="2" style="font-size: 11px;">____________</td>
+                <td class="small-text" style="font-size: 10px;">LSB, (______T)</td>
+            </tr>
+            
+            <!-- 空行 -->
+            <tr class="empty-row">
+                <td colspan="11"></td>
+            </tr>
+            
+            <!-- DISTRIBUTION 標題 -->
+            <tr>
+                <td colspan="11" class="section-title">DISTRIBUTION</td>
+            </tr>
+        </table>
+        
+        <!-- DISTRIBUTION 表格 - 調整為圖片中的格式 -->
+        <table class="fuel-table">
+            <!-- 表頭行 -->
+            <tr>
+                <td class="header-row tank-col tank-header-horizontal">TANK</td>
+                <td class="header-row required-col">REQUIRED (LBS)</td>
+                <td class="header-row remaining-col">REMAINING (LBS)</td>
+                <td class="header-row post-service-col">POST SERVICE (LBS)</td>
+                <td class="header-row remark-col">
+                    <div class="vertical-text-container">
+                        <div class="remark-horizontal">REMARK</div>
+                    </div>
+                </td>
+            </tr>
+            
+            <!-- 油箱1 -->
+            <tr>
+                <td class="sub-header tank-col" style="font-size: 12px;">1</td>
+                <td class="demand-cell required-col" style="font-size: 11px;">需求油量</td>
+                <td class="input-cell remaining-col">
+                    <input type="number" id="remaining1" class="remaining-fuel" placeholder="剩餘油量" value="0" style="font-size: 11px;">
+                </td>
+                <td class="input-cell post-service-col">
+                    <input type="number" id="postService1" class="post-service-fuel" placeholder="加油後油量" value="0" style="font-size: 11px;">
+                </td>
+                <td class="remark-col remark-large-cell" rowspan="6">
+                    <!-- 空白備註區域 -->
+                </td>
+            </tr>
+            
+            <!-- 油箱2 -->
+            <tr>
+                <td class="sub-header tank-col" style="font-size: 12px;">2</td>
+                <td class="demand-cell required-col" style="font-size: 11px;">需求油量</td>
+                <td class="input-cell remaining-col">
+                    <input type="number" id="remaining2" class="remaining-fuel" placeholder="剩餘油量" value="0" style="font-size: 11px;">
+                </td>
+                <td class="input-cell post-service-col">
+                    <input type="number" id="postService2" class="post-service-fuel" placeholder="加油後油量" value="0" style="font-size: 11px;">
+                </td>
+            </tr>
+            
+            <!-- 油箱CTR -->
+            <tr>
+                <td class="sub-header tank-col" style="font-size: 12px;">CTR</td>
+                <td class="demand-cell required-col" style="font-size: 11px;">需求油量</td>
+                <td class="input-cell remaining-col">
+                    <input type="number" id="remainingCtr" class="remaining-fuel" placeholder="剩餘油量" value="0" style="font-size: 11px;">
+                </td>
+                <td class="input-cell post-service-col">
+                    <input type="number" id="postServiceCtr" class="post-service-fuel" placeholder="加油後油量" value="0" style="font-size: 11px;">
+                </td>
+            </tr>
+            
+            <!-- TOTAL行 - 調整為圖片中的格式 -->
+            <tr>
+                <td class="header-row tank-col">TOTAL</td>
+                <td class="demand-total required-col" style="font-size: 11px;">需求總油量 寫在這裡</td>
+                <td class="calculation-cell remaining-col" id="totalRemaining" style="font-size: 12px;">0</td>
+                <td class="calculation-cell post-service-col" id="totalPostService" style="font-size: 12px;">0</td>
+            </tr>
+            
+            <!-- *CALCULATED FUEL行 - 已合併左側格子，調整為圖片中的格式 -->
+            <tr>
+                <td class="header-row calculated-fuel-merged" colspan="3" style="font-size: 11px;">*CALCULATED FUEL</td>
+                <td class="calculation-cell post-service-col" id="calculatedFuel" style="font-size: 12px;">0</td>
+            </tr>
+            
+            <!-- DIFFERENCE行 - 已合併左側格子，調整為圖片中的格式 -->
+            <tr>
+                <td class="header-row difference-merged" colspan="3" style="font-size: 11px;">
+                    DIFFERENCE<br>
+                    <span class="small-text" style="font-size: 9px;">(Calculated Fuel-Total Post service)</span>
+                </td>
+                <td class="result-cell post-service-col" id="difference" style="font-size: 12px;">0</td>
+            </tr>
+        </table>
+        
+        <!-- FUEL INFORMATION 部分 - 調整為圖片中的格式 -->
+        <table class="fuel-table">
+            <!-- FUEL INFORMATION 標題 -->
+            <tr>
+                <td colspan="11" class="section-title">FUEL INFORMATION</td>
+            </tr>
+            
+            <!-- 刪除了FUEL INFORMATION標題下方的空行 -->
+            
+            <!-- STATION FUEL 和 DIFFERENCE TOLERANCE - 調整為圖片中的格式 -->
+            <tr>
+                <td colspan="4" class="header-row fuel-info-left" style="font-size: 11px;">STATION FUEL</td>
+                <td colspan="7" class="small-text tolerance-cell fuel-info-right">
+                    <strong>DIFFERENCE TOLERANCE<br>POST SERVICE DIFFERENCE</strong><br>
+                    &lt;50,000 LBS ±800 LBS<br>
+                    50,000-99,999 LBS ±1,500 LBS<br>
+                    100,000-149,999 LBS ±1,700 LBS<br>
+                    150,000-199,999 LBS ±2,000 LBS<br>
+                    ≥200,000 LBS ±2,400 LBS
+                </td>
+            </tr>
+            
+            <!-- JET 類型 - 調整為圖片中的格式 -->
+            <tr>
+                <td colspan="4" class="sub-header fuel-type-cell fuel-info-left">
+                    JET -A1, JET-A, JETP-B, OTHER<br>
+                    <input type="text" id="fuelType" placeholder="___________" style="width: 90%; margin-top: 5px; font-size: 11px;">
+                </td>
+                <td colspan="7" class="freeze-point-cell fuel-info-right" style="padding-top: 12px;">
+                    <strong>FREEZE POINT: -47</strong>
+                </td>
+            </tr>
+            
+            <!-- DENSITY - 調整為圖片中的格式 -->
+            <tr>
+                <td colspan="2" class="sub-header" style="font-size: 11px;">
+                    DENSITY: 
+                    <input type="number" id="density" value="6.55" step="0.01" min="0" class="density-input" style="font-size: 11px;">
+                    LBS/GAL
+                </td>
+                <td colspan="2" class="sub-header" style="font-size: 11px;">
+                    BONDED 不用寫
+                </td>
+                <td colspan="7" class="sub-header" style="font-size: 11px;">
+                    DOMESTIC 不用寫
+                </td>
+            </tr>
+        </table>
+        
+        <!-- 簽名欄 - 調整為圖片中的格式 -->
+        <table class="signature-table">
+            <tr>
+                <td>
+                    <span class="signature-label" style="font-size: 13px;">FLT CREW :</span>
+                    <input type="text" id="flightCrew" placeholder="教官簽名" style="font-size: 14px;">
+                </td>
+                <td>
+                    <span class="signature-label" style="font-size: 13px;">FUEL BY :</span>
+                    <input type="text" id="fuelBy" placeholder="機務簽名" style="font-size: 14px;">
+                </td>
+                <td>
+                    <span class="signature-label" style="font-size: 13px;">OFP TOTAL FUEL BY :</span>
+                    <div class="no-input">不用寫</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <!-- 說明和按鈕 -->
+    <div class="instructions no-print">
+        <h3>使用說明</h3>
+        <ul>
+            <li><strong>剩餘油量 (REMAINING)</strong>: 輸入各油箱剩餘油量，系統會自動計算總和。</li>
+            <li><strong>加油後油量 (POST SERVICE)</strong>: 輸入各油箱加油後油量，系統會自動計算總和並顯示為 FINAL FUEL。</li>
+            <li><strong>加完油拿到的油單資料</strong>: 輸入加油量 (Liters)，系統會自動換算為 METERED FUEL ADDED (US GAL)。</li>
+            <li><strong>密度 (DENSITY)</strong>: 可手動調整燃油密度，預設為 6.55 LBS/GAL。</li>
+            <li><strong>*CALCULATED FUEL</strong>: 自動計算 = 剩餘油量總和 + (密度 × METERED FUEL ADDED)。</li>
+            <li><strong>DIFFERENCE</strong>: 自動計算 = CALCULATED FUEL - POST SERVICE 總和。</li>
+        </ul>
+        
+        <div class="button-group">
+            <button id="calculateBtn">計算與驗證</button>
+            <button id="resetBtn">重設表格</button>
+            <button onclick="window.print()">列印表格</button>
+        </div>
+    </div>
+
+    <script>
+        // DOM元素
+        const chinaOilLitersInput = document.getElementById('chinaOilLiters');
+        const meteredFuelAddedElement = document.getElementById('meteredFuelAdded');
+        const remainingInputs = document.querySelectorAll('.remaining-fuel');
+        const postServiceInputs = document.querySelectorAll('.post-service-fuel');
+        const totalRemainingElement = document.getElementById('totalRemaining');
+        const totalPostServiceElement = document.getElementById('totalPostService');
+        const calculatedFuelElement = document.getElementById('calculatedFuel');
+        const differenceElement = document.getElementById('difference');
+        const densityInput = document.getElementById('density');
+        const finalFuelElement = document.getElementById('finalFuel');
+        const flightDateInput = document.getElementById('flightDate');
+        
+        // 計算按鈕和重設按鈕
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // 設定台灣當天日期
+        function setTaiwanDate() {
+            const now = new Date();
+            // 台灣時區 (UTC+8)
+            const taiwanTime = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+            const year = taiwanTime.getUTCFullYear();
+            const month = String(taiwanTime.getUTCMonth() + 1).padStart(2, '0');
+            const day = String(taiwanTime.getUTCDate()).padStart(2, '0');
+            // 使用更簡潔的日期格式
+            const dateString = `${year}/${month}/${day}`;
+            flightDateInput.value = dateString;
+        }
+        
+        // 計算METERED FUEL ADDED (升轉加侖)
+        function calculateMeteredFuel() {
+            const liters = parseFloat(chinaOilLitersInput.value) || 0;
+            // 1升 = 0.26417加侖
+            const gallons = liters * 0.26417;
+            // 四捨五入到整數
+            const roundedGallons = Math.round(gallons);
+            meteredFuelAddedElement.textContent = roundedGallons.toLocaleString();
+            return roundedGallons;
+        }
+        
+        // 計算剩餘油量總和
+        function calculateRemainingTotal() {
+            let total = 0;
+            remainingInputs.forEach(input => {
+                const value = parseFloat(input.value) || 0;
+                total += value;
+            });
+            totalRemainingElement.textContent = total.toLocaleString();
+            return total;
+        }
+        
+        // 計算加油後油量總和
+        function calculatePostServiceTotal() {
+            let total = 0;
+            postServiceInputs.forEach(input => {
+                const value = parseFloat(input.value) || 0;
+                total += value;
+            });
+            totalPostServiceElement.textContent = total.toLocaleString();
+            
+            // 更新FINAL FUEL
+            finalFuelElement.textContent = total.toLocaleString();
+            
+            return total;
+        }
+        
+        // 計算CALCULATED FUEL
+        function calculateCalculatedFuel() {
+            const remainingTotal = calculateRemainingTotal();
+            const meteredFuel = calculateMeteredFuel();
+            const density = parseFloat(densityInput.value) || 6.55;
+            
+            // CALCULATED FUEL = 剩餘油量總和 + (密度 * METERED FUEL ADDED)
+            const calculatedFuel = remainingTotal + (density * meteredFuel);
+            calculatedFuelElement.textContent = Math.round(calculatedFuel).toLocaleString();
+            return Math.round(calculatedFuel);
+        }
+        
+        // 計算DIFFERENCE
+        function calculateDifference() {
+            const calculatedFuel = calculateCalculatedFuel();
+            const postServiceTotal = calculatePostServiceTotal();
+            
+            // DIFFERENCE = CALCULATED FUEL - POST SERVICE 總量
+            const difference = calculatedFuel - postServiceTotal;
+            differenceElement.textContent = Math.round(difference).toLocaleString();
+            
+            // 根據差值設置顏色
+            const absDiff = Math.abs(difference);
+            if (absDiff > 2400) {
+                differenceElement.style.color = '#d32f2f'; // 紅色
+                differenceElement.style.backgroundColor = '#ffebee';
+            } else if (absDiff > 800) {
+                differenceElement.style.color = '#f57c00'; // 橙色
+                differenceElement.style.backgroundColor = '#fff3e0';
+            } else {
+                differenceElement.style.color = '#388e3c'; // 綠色
+                differenceElement.style.backgroundColor = '#f1f8e9';
+            }
+            
+            return difference;
+        }
+        
+        // 執行所有計算
+        function performAllCalculations() {
+            calculateMeteredFuel();
+            calculateRemainingTotal();
+            calculatePostServiceTotal();
+            calculateCalculatedFuel();
+            calculateDifference();
+            
+            // 檢查是否所有必填欄位都已填寫
+            const requiredFields = [
+                'flightNumber', 'aircraftNumber', 
+                'departure', 'arrival', 'flightCrew', 'fuelBy'
+            ];
+            
+            let allFilled = true;
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    allFilled = false;
+                    field.style.borderColor = '#d32f2f';
+                    field.style.borderWidth = '2px';
+                } else {
+                    field.style.borderColor = '#bbb';
+                    field.style.borderWidth = '1px';
+                }
+            });
+            
+            // 顯示成功消息
+            if (allFilled) {
+                alert('計算完成！所有欄位已填寫，油單已準備就緒。');
+            } else {
+                alert('計算完成！但請檢查紅色標記的必填欄位。');
+            }
+        }
+        
+        // 重設表格
+        function resetForm() {
+            if (confirm('確定要重設所有資料嗎？此操作無法復原。')) {
+                // 重置所有輸入欄位
+                const allInputs = document.querySelectorAll('input[type="text"], input[type="number"]');
+                allInputs.forEach(input => {
+                    if (input.id === 'density') {
+                        input.value = 6.55;
+                    } else if (input.id === 'chinaOilLiters' || 
+                              input.classList.contains('remaining-fuel') || 
+                              input.classList.contains('post-service-fuel')) {
+                        input.value = '0';
+                    } else if (!input.disabled && input.id !== 'flightDate') {
+                        input.value = '';
+                    }
+                    
+                    // 重置邊框樣式
+                    if (input.id !== 'flightDate') {
+                        input.style.borderColor = '#bbb';
+                        input.style.borderWidth = '1px';
+                    }
+                });
+                
+                // 重置所有計算結果
+                const resultElements = document.querySelectorAll('.result-cell, .calculation-cell');
+                resultElements.forEach(element => {
+                    if (element.id !== 'fuelType' && 
+                        element.id !== 'difference') {
+                        element.textContent = '0';
+                    }
+                });
+                
+                // 重置difference顏色
+                differenceElement.style.color = '';
+                differenceElement.style.backgroundColor = '#f0ffe8';
+                
+                // 重新設定日期
+                setTaiwanDate();
+                
+                alert('表格已重設！');
+            }
+        }
+        
+        // 事件監聽器
+        chinaOilLitersInput.addEventListener('input', () => {
+            calculateMeteredFuel();
+            calculateCalculatedFuel();
+            calculateDifference();
+        });
+        
+        densityInput.addEventListener('input', () => {
+            calculateCalculatedFuel();
+            calculateDifference();
+        });
+        
+        // 為所有剩餘油量輸入框添加事件監聽
+        remainingInputs.forEach(input => {
+            input.addEventListener('input', () => {
+                calculateRemainingTotal();
+                calculateCalculatedFuel();
+                calculateDifference();
+            });
+        });
+        
+        // 為所有加油後油量輸入框添加事件監聽
+        postServiceInputs.forEach(input => {
+            input.addEventListener('input', () => {
+                calculatePostServiceTotal();
+                calculateDifference();
+            });
+        });
+        
+        // 按鈕事件監聽
+        calculateBtn.addEventListener('click', performAllCalculations);
+        resetBtn.addEventListener('click', resetForm);
+        
+        // 初始化計算
+        window.addEventListener('DOMContentLoaded', () => {
+            // 設置初始值
+            setTaiwanDate();
+            calculateMeteredFuel();
+            calculateRemainingTotal();
+            calculatePostServiceTotal();
+            calculateCalculatedFuel();
+            calculateDifference();
+        });
+    </script>
+</body>
+</html>

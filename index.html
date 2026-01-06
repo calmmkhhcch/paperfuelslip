@@ -46,6 +46,18 @@
             letter-spacing: 1px;
         }
         
+        /* 新增的換算公式行 */
+        .conversion-formula {
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: red;
+            padding: 8px 0;
+            border-bottom: 1px solid #999;
+            background-color: #f9f9f9;
+            letter-spacing: 0.5px;
+        }
+        
         .china-oil-info {
             text-align: right;
             padding: 12px 25px;
@@ -250,11 +262,29 @@
             font-size: 16px;
         }
         
+        .signature-table .signature-static {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 0;
+            border-bottom: 2px solid #999;
+            margin-top: 6px;
+        }
+        
         .signature-table .no-input {
             color: #666;
             padding: 10px 8px;
             font-style: italic;
             font-size: 15px;
+        }
+        
+        .signature-table .no-input-with-line {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 0;
+            border-bottom: 2px solid #999;
+            margin-top: 6px;
+            color: #666;
+            font-style: italic;
         }
         
         @media print {
@@ -396,15 +426,6 @@
             line-height: 1.2 !important;
         }
         
-        /* 簽名欄靜態文字 */
-        .signature-static {
-            font-size: 18px;
-            font-weight: bold;
-            padding: 12px 0;
-            border-bottom: 2px solid #999;
-            margin-top: 6px;
-        }
-        
         /* =============== 重新設計FUEL INFORMATION部分，與圖片完全一致 =============== */
         .fuel-info-container {
             width: 100%;
@@ -467,13 +488,14 @@
             white-space: nowrap;
         }
         
-        .jet-fuel-input {
+        .jet-fuel-static {
             border: 1px solid #ccc;
             background-color: white;
             padding: 8px 10px;
             text-align: center;
             font-size: 14px;
             width: 150px;
+            font-weight: bold;
         }
         
         /* DENSITY部分 */
@@ -587,6 +609,40 @@
                 max-width: 1300px;
             }
         }
+        
+        /* OFP TOTAL FUEL 和 TAXI FUEL 的輸入框樣式 */
+        .copy-input-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .copy-input-field {
+            width: 100%;
+            border: 1px solid #ccc;
+            background-color: white;
+            padding: 8px 6px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        .copy-input-field:focus {
+            border-color: #003366;
+            box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.1);
+        }
+        
+        .copy-input-hint {
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            right: 0;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -597,6 +653,11 @@
         
         <div class="main-title">
             A321 FUEL LOAD & SERVICE RECORD
+        </div>
+        
+        <!-- 新增的換算公式行 -->
+        <div class="conversion-formula">
+            LITER X 0.26417 = US GAL
         </div>
         
         <!-- 加完油拿到的油單資料 -->
@@ -627,13 +688,17 @@
             <tr class="ofp-row">
                 <td colspan="2" class="header-row ofp-total-label">OFP TOTAL FUEL :</td>
                 <td class="input-cell ofp-total-input">
-                    <input type="number" id="ofpTotalFuel" placeholder="輸入油量">
-                    <div class="copy-text">油單有寫照抄</div>
+                    <div class="copy-input-container">
+                        <input type="number" id="ofpTotalFuel" class="copy-input-field" placeholder="輸入油量">
+                        <div class="copy-input-hint">油單有寫照抄</div>
+                    </div>
                 </td>
                 <td colspan="2" class="small-text lbs-including-label">LBS, INCLUDING TAXI FUEL :</td>
                 <td class="input-cell taxi-fuel-input">
-                    <input type="number" id="taxiFuel" placeholder="輸入油量">
-                    <div class="copy-text">油單有寫照抄</div>
+                    <div class="copy-input-container">
+                        <input type="number" id="taxiFuel" class="copy-input-field" placeholder="輸入油量">
+                        <div class="copy-input-hint">油單有寫照抄</div>
+                    </div>
                 </td>
                 <td class="small-text lbs-cell">LBS</td>
                 <td class="header-row metered-fuel-label">METERED FUEL ADDED</td>
@@ -754,7 +819,7 @@
                     <!-- 第一部分：JET燃料類型 -->
                     <div class="fuel-details-part jet-fuel-part">
                         <span class="jet-fuel-label">JET -A1, JET-A, JETP-B, OTHER</span>
-                        <input type="text" id="fuelType" class="jet-fuel-input" placeholder="___________">
+                        <div class="jet-fuel-static">JET-A1</div>
                     </div>
                     
                     <!-- 第二部分：DENSITY -->
@@ -832,13 +897,13 @@
                 </td>
                 <td>
                     <span class="signature-label">OFP TOTAL FUEL BY :</span>
-                    <div class="no-input">不用寫</div>
+                    <div class="no-input-with-line">不用寫</div>
                 </td>
             </tr>
         </table>
     </div>
     
-    <!-- 說明和按鈕 -->
+    <!-- 說明和按鈕 - 只保留重設按鈕 -->
     <div class="instructions no-print">
         <h3>使用說明</h3>
         <ul>
@@ -851,9 +916,7 @@
         </ul>
         
         <div class="button-group">
-            <button id="calculateBtn">計算與驗證</button>
             <button id="resetBtn">重設表格</button>
-            <button onclick="window.print()">列印表格</button>
         </div>
     </div>
 
@@ -870,9 +933,10 @@
         const densityInput = document.getElementById('density');
         const finalFuelElement = document.getElementById('finalFuel');
         const flightDateInput = document.getElementById('flightDate');
+        const ofpTotalFuelInput = document.getElementById('ofpTotalFuel');
+        const taxiFuelInput = document.getElementById('taxiFuel');
         
-        // 計算按鈕和重設按鈕
-        const calculateBtn = document.getElementById('calculateBtn');
+        // 重設按鈕
         const resetBtn = document.getElementById('resetBtn');
         
         // 設定台灣當天日期
@@ -969,8 +1033,6 @@
             calculatePostServiceTotal();
             calculateCalculatedFuel();
             calculateDifference();
-            
-            alert('計算完成！油單已準備就緒。');
         }
         
         // 重設表格
@@ -983,7 +1045,9 @@
                         input.value = 6.55;
                     } else if (input.id === 'chinaOilLiters' || 
                               input.classList.contains('remaining-fuel') || 
-                              input.classList.contains('post-service-fuel')) {
+                              input.classList.contains('post-service-fuel') ||
+                              input.id === 'ofpTotalFuel' ||
+                              input.id === 'taxiFuel') {
                         input.value = '0';
                     } else if (!input.disabled && input.id !== 'flightDate') {
                         input.value = '';
@@ -1010,49 +1074,50 @@
             }
         }
         
-        // 事件監聽器
+        // 事件監聽器 - 自動計算
         chinaOilLitersInput.addEventListener('input', () => {
-            calculateMeteredFuel();
-            calculateCalculatedFuel();
-            calculateDifference();
+            performAllCalculations();
         });
         
         densityInput.addEventListener('input', () => {
-            calculateCalculatedFuel();
-            calculateDifference();
+            performAllCalculations();
         });
         
         // 為所有剩餘油量輸入框添加事件監聽
         remainingInputs.forEach(input => {
             input.addEventListener('input', () => {
-                calculateRemainingTotal();
-                calculateCalculatedFuel();
-                calculateDifference();
+                performAllCalculations();
             });
         });
         
         // 為所有加油後油量輸入框添加事件監聽
         postServiceInputs.forEach(input => {
             input.addEventListener('input', () => {
-                calculatePostServiceTotal();
-                calculateDifference();
+                performAllCalculations();
             });
         });
         
+        // OFP TOTAL FUEL 輸入框事件監聽
+        ofpTotalFuelInput.addEventListener('input', () => {
+            // 如果OFP TOTAL FUEL有值，可以進行相關計算
+            // 目前暫不需要特殊處理
+        });
+        
+        // TAXI FUEL 輸入框事件監聽
+        taxiFuelInput.addEventListener('input', () => {
+            // 如果TAXI FUEL有值，可以進行相關計算
+            // 目前暫不需要特殊處理
+        });
+        
         // 按鈕事件監聽
-        calculateBtn.addEventListener('click', performAllCalculations);
         resetBtn.addEventListener('click', resetForm);
         
         // 初始化計算
         window.addEventListener('DOMContentLoaded', () => {
             // 設置初始值
             setTaiwanDate();
-            calculateMeteredFuel();
-            calculateRemainingTotal();
-            calculatePostServiceTotal();
-            calculateCalculatedFuel();
-            calculateDifference();
+            performAllCalculations();
         });
     </script>
 </body>
-    </html>
+</html>

@@ -770,7 +770,8 @@
                     
                     <div class="fuel-details-part density-part">
                         <span class="density-label">DENSITY:</span>
-                        <input type="number" id="density" step="0.001" style="width: 80px; text-align: center; padding: 8px;" placeholder="LBS/GAL">
+                        <!-- 修改 placeholder 為「密度」，無預設值 -->
+                        <input type="number" id="density" step="0.001" style="width: 80px; text-align: center; padding: 8px;" placeholder="密度">
                         <span>LBS/GAL</span>
                         
                         <div class="china-oil-density-group">
@@ -989,7 +990,7 @@
         // 重設所有資料 (清空所有數值輸入，保留placeholder)
         function resetForm() {
             if (confirm('確定要重設所有資料嗎？此操作無法復原。')) {
-                // 清空所有輸入框 (保留日期)
+                // 清空所有數字輸入框
                 const allNumberInputs = document.querySelectorAll('input[type="number"]');
                 allNumberInputs.forEach(input => {
                     if (input.id === 'chinaOilDensityKgL') {
@@ -1063,4 +1064,4 @@
         });
     </script>
 </body>
-</html>
+    </html>

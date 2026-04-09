@@ -46,7 +46,6 @@
             letter-spacing: 1px;
         }
         
-        /* 新增的換算公式行 */
         .conversion-formula {
             text-align: center;
             font-weight: bold;
@@ -239,7 +238,6 @@
             background-color: #e0e0e0;
         }
         
-        /* 簽名欄 */
         .signature-table {
             width: 100%;
             border-collapse: collapse;
@@ -312,14 +310,12 @@
             }
         }
         
-        /* 空行樣式 */
         .empty-row td {
             border: none;
             height: 10px;
             background-color: transparent;
         }
         
-        /* 調整"油單有寫照抄"文字大小 */
         .copy-text {
             font-size: 10px;
             white-space: nowrap;
@@ -330,14 +326,12 @@
             color: #666;
         }
         
-        /* 調整MTOW右側單元格 */
         .mtow-cell {
             background-color: #f9f9f9;
             text-align: center;
             padding: 8px !important;
         }
         
-        /* 調整DENSITY輸入框大小 */
         .density-input {
             width: 70px !important;
             display: inline-block;
@@ -346,7 +340,6 @@
             padding: 6px 5px;
         }
         
-        /* DISTRIBUTION表格的特定列寬 */
         .tank-col {
             width: 9%;
         }
@@ -368,7 +361,6 @@
             padding: 12px 8px !important;
         }
         
-        /* 調整需求總油量單元格 */
         .demand-total {
             background-color: #f0f0f0;
             text-align: center;
@@ -376,7 +368,6 @@
             font-size: 13px;
         }
         
-        /* 修正TANK方向 - 改為水平顯示 */
         .tank-header-horizontal {
             text-align: center;
             font-weight: bold;
@@ -386,7 +377,6 @@
             font-size: 13px;
         }
         
-        /* 修正需求油量樣式 - 只顯示文字，沒有輸入框 */
         .demand-cell {
             text-align: center;
             padding: 10px 6px !important;
@@ -394,7 +384,6 @@
             font-size: 13px;
         }
         
-        /* 合併格子的寬度調整 */
         .calculated-fuel-merged {
             width: 48%;
             text-align: center;
@@ -409,31 +398,22 @@
             font-size: 13px;
         }
         
-        /* 特別調整日期輸入框樣式 */
-        #flightDate {
-            font-size: 14px;
-            padding: 8px 5px;
-        }
-        
-        /* 調整航班資訊行的內邊距 */
         .flight-info-row td {
             padding: 8px 5px !important;
         }
         
-        /* 調整表頭行的字體大小 */
         .compact-header {
             font-size: 11px !important;
             line-height: 1.2 !important;
         }
         
-        /* =============== 重新設計FUEL INFORMATION部分，與圖片完全一致 =============== */
+        /* FUEL INFORMATION 區域 */
         .fuel-info-container {
             width: 100%;
             border-collapse: collapse;
             border-top: 1px solid #999;
         }
         
-        /* 左邊格：STATION FUEL */
         .station-fuel-cell {
             width: 20%;
             border: 1px solid #999;
@@ -447,7 +427,6 @@
             padding: 0 10px;
         }
         
-        /* 中間格：分為上下三部分 */
         .middle-cell {
             width: 40%;
             border: 1px solid #999;
@@ -455,7 +434,6 @@
             height: 200px;
         }
         
-        /* 右邊格：DIFFERENCE TOLERANCE - 加寬 */
         .tolerance-cell {
             width: 40%;
             border: 1px solid #999;
@@ -464,7 +442,6 @@
             background-color: #f9f9f9;
         }
         
-        /* 中間格的各部分 */
         .fuel-details-part {
             height: 33.33%;
             padding: 10px 15px;
@@ -477,7 +454,6 @@
             border-bottom: none;
         }
         
-        /* JET燃料部分 */
         .jet-fuel-part {
             justify-content: space-between;
         }
@@ -498,19 +474,42 @@
             font-weight: bold;
         }
         
-        /* DENSITY部分 */
+        /* 密度區域 — 新增中油油單密度後保持彈性 */
         .density-part {
             justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 8px 12px;
         }
         
         .density-label {
             font-weight: bold;
             font-size: 14px;
-            margin-right: 10px;
             white-space: nowrap;
         }
         
-        /* BONDED和DOMESTIC部分 */
+        .china-oil-density-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fef7e0;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+        
+        .china-oil-density-group span {
+            font-weight: bold;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        
+        #chinaOilDensityKgL {
+            width: 75px;
+            padding: 6px 5px;
+            font-size: 13px;
+            margin: 0 4px;
+        }
+        
         .bonded-domestic-part {
             justify-content: space-between;
         }
@@ -534,7 +533,6 @@
             margin-left: 10px;
         }
         
-        /* DIFFERENCE TOLERANCE 表格 */
         .tolerance-table {
             width: 100%;
             border-collapse: collapse;
@@ -578,7 +576,6 @@
             width: 30%;
         }
         
-        /* 響應式調整 */
         @media (max-width: 1024px) {
             .container {
                 overflow-x: auto;
@@ -600,9 +597,12 @@
             .fuel-info-container {
                 min-width: 950px;
             }
+            
+            .density-part {
+                flex-wrap: wrap;
+            }
         }
         
-        /* 確保表格在寬螢幕上不會太窄 */
         @media (min-width: 1200px) {
             .container {
                 width: 100%;
@@ -610,7 +610,6 @@
             }
         }
         
-        /* OFP TOTAL FUEL 和 TAXI FUEL 的輸入框樣式 */
         .copy-input-container {
             position: relative;
             width: 100%;
@@ -655,20 +654,16 @@
             A321 FUEL LOAD & SERVICE RECORD
         </div>
         
-        <!-- 新增的換算公式行 -->
         <div class="conversion-formula">
             LITER X 0.26417 = US GAL
         </div>
         
-        <!-- 加完油拿到的油單資料 -->
         <div class="china-oil-info">
             加完油拿到的油單資料: 
             <input type="number" id="chinaOilLiters" placeholder="輸入加油量(Liters)">
         </div>
         
-        <!-- 航班資訊表格 -->
         <table class="fuel-table">
-            <!-- 航班資訊行 -->
             <tr class="flight-info-row">
                 <td class="header-row schedule-date-cell compact-header">SCHEDULE<br>DATE</td>
                 <td class="input-cell date-input-cell">
@@ -684,7 +679,6 @@
                 <td class="static-text arr-static-cell">到達地</td>
             </tr>
             
-            <!-- OFP TOTAL FUEL 行 -->
             <tr class="ofp-row">
                 <td colspan="2" class="header-row ofp-total-label">OFP TOTAL FUEL :</td>
                 <td class="input-cell ofp-total-input">
@@ -706,7 +700,6 @@
                 <td class="small-text us-gal-cell">US GAL</td>
             </tr>
             
-            <!-- FINAL FUEL 行 -->
             <tr>
                 <td colspan="2" class="header-row final-fuel-label">FINAL FUEL :</td>
                 <td class="calculation-cell final-fuel-result" id="finalFuel">0</td>
@@ -716,13 +709,11 @@
                 <td class="small-text lsb-cell">LSB, (______T)</td>
             </tr>
             
-            <!-- DISTRIBUTION 標題 -->
             <tr>
                 <td colspan="11" class="section-title">DISTRIBUTION</td>
             </tr>
         </table>
         
-        <!-- DISTRIBUTION 表格 -->
         <table class="fuel-table">
             <tr>
                 <td class="header-row tank-col tank-header-horizontal">TANK</td>
@@ -733,8 +724,6 @@
                     <div class="remark-horizontal">REMARK</div>
                 </td>
             </tr>
-            
-            <!-- 油箱1 -->
             <tr>
                 <td class="sub-header tank-col">1</td>
                 <td class="demand-cell required-col">需求油量</td>
@@ -744,12 +733,8 @@
                 <td class="input-cell post-service-col">
                     <input type="number" id="postService1" class="post-service-fuel" placeholder="加油後油量" value="0">
                 </td>
-                <td class="remark-col" rowspan="6">
-                    <!-- 空白備註區域 -->
-                </td>
+                <td class="remark-col" rowspan="6"></td>
             </tr>
-            
-            <!-- 油箱2 -->
             <tr>
                 <td class="sub-header tank-col">2</td>
                 <td class="demand-cell required-col">需求油量</td>
@@ -760,8 +745,6 @@
                     <input type="number" id="postService2" class="post-service-fuel" placeholder="加油後油量" value="0">
                 </td>
             </tr>
-            
-            <!-- 油箱CTR -->
             <tr>
                 <td class="sub-header tank-col">CTR</td>
                 <td class="demand-cell required-col">需求油量</td>
@@ -772,22 +755,16 @@
                     <input type="number" id="postServiceCtr" class="post-service-fuel" placeholder="加油後油量" value="0">
                 </td>
             </tr>
-            
-            <!-- TOTAL行 -->
             <tr>
                 <td class="header-row tank-col">TOTAL</td>
                 <td class="demand-total required-col">需求總油量 寫在這裡</td>
                 <td class="calculation-cell remaining-col" id="totalRemaining">0</td>
                 <td class="calculation-cell post-service-col" id="totalPostService">0</td>
             </tr>
-            
-            <!-- *CALCULATED FUEL行 -->
             <tr>
                 <td class="header-row calculated-fuel-merged" colspan="3">*CALCULATED FUEL</td>
                 <td class="calculation-cell post-service-col" id="calculatedFuel">0</td>
             </tr>
-            
-            <!-- DIFFERENCE行 -->
             <tr>
                 <td class="header-row difference-merged" colspan="3">
                     DIFFERENCE<br>
@@ -797,39 +774,37 @@
             </tr>
         </table>
         
-        <!-- FUEL INFORMATION 標題 -->
         <table class="fuel-table">
             <tr>
                 <td colspan="11" class="section-title">FUEL INFORMATION</td>
             </tr>
         </table>
         
-        <!-- FUEL INFORMATION 內容 - 根據最新要求重新設計 -->
         <table class="fuel-info-container">
             <tr>
-                <!-- 左邊格：STATION FUEL -->
                 <td class="station-fuel-cell">
                     <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
                         STATION<br>FUEL
                     </div>
                 </td>
-                
-                <!-- 中間格：分為三部分 -->
                 <td class="middle-cell">
-                    <!-- 第一部分：JET燃料類型 -->
                     <div class="fuel-details-part jet-fuel-part">
                         <span class="jet-fuel-label">JET -A1, JET-A, JETP-B, OTHER</span>
                         <div class="jet-fuel-static">JET-A1</div>
                     </div>
                     
-                    <!-- 第二部分：DENSITY -->
                     <div class="fuel-details-part density-part">
                         <span class="density-label">DENSITY:</span>
-                        <input type="number" id="density" value="6.55" step="0.01" min="0" style="width: 70px; text-align: center; padding: 8px; margin-right: 10px;">
+                        <input type="number" id="density" value="6.55" step="0.01" min="0" style="width: 70px; text-align: center; padding: 8px; margin-right: 4px;">
                         <span>LBS/GAL</span>
+                        
+                        <div class="china-oil-density-group">
+                            <span>中油油單密度:</span>
+                            <input type="number" id="chinaOilDensityKgL" step="0.001" placeholder="例:0.783" style="width: 75px;">
+                            <span>KG/LITER</span>
+                        </div>
                     </div>
                     
-                    <!-- 第三部分：BONDED 和 DOMESTIC -->
                     <div class="fuel-details-part bonded-domestic-part">
                         <div class="bonded-section">
                             <div style="font-weight: bold;">BONDED</div>
@@ -841,80 +816,47 @@
                         </div>
                     </div>
                 </td>
-                
-                <!-- 右邊格：DIFFERENCE TOLERANCE - 重新設計 -->
                 <td class="tolerance-cell">
                     <table class="tolerance-table">
-                        <!-- 第一行：DIFFERENCE TOLERANCE -->
-                        <tr>
-                            <td colspan="2" class="tolerance-main-header">DIFFERENCE TOLERANCE</td>
-                        </tr>
-                        <!-- 第二行：POST SERVICE 和 DIFFERENCE -->
-                        <tr>
-                            <td class="tolerance-sub-header">POST SERVICE</td>
-                            <td class="tolerance-sub-header">DIFFERENCE</td>
-                        </tr>
-                        <!-- 第三行：<50,000 LBS 和 ±800 LBS -->
-                        <tr>
-                            <td class="tolerance-range">&lt;50,000 LBS</td>
-                            <td class="tolerance-value">±800 LBS</td>
-                        </tr>
-                        <!-- 第四行：50,000-99,999 LBS 和 ±1,500 LBS -->
-                        <tr>
-                            <td class="tolerance-range">50,000-99,999 LBS</td>
-                            <td class="tolerance-value">±1,500 LBS</td>
-                        </tr>
-                        <!-- 第五行：100,000-149,999 LBS 和 ±1,700 LBS -->
-                        <tr>
-                            <td class="tolerance-range">100,000-149,999 LBS</td>
-                            <td class="tolerance-value">±1,700 LBS</td>
-                        </tr>
-                        <!-- 第六行：150,000-199,999 LBS 和 ±2,000 LBS -->
-                        <tr>
-                            <td class="tolerance-range">150,000-199,999 LBS</td>
-                            <td class="tolerance-value">±2,000 LBS</td>
-                        </tr>
-                        <!-- 第七行：≥200,000 LBS 和 ±2,400 LBS -->
-                        <tr>
-                            <td class="tolerance-range">≥200,000 LBS</td>
-                            <td class="tolerance-value">±2,400 LBS</td>
-                        </tr>
+                        <tr><td colspan="2" class="tolerance-main-header">DIFFERENCE TOLERANCE</td></tr>
+                        <tr><td class="tolerance-sub-header">POST SERVICE</td><td class="tolerance-sub-header">DIFFERENCE</td></tr>
+                        <tr><td class="tolerance-range">&lt;50,000 LBS</td><td class="tolerance-value">±800 LBS</td></tr>
+                        <tr><td class="tolerance-range">50,000-99,999 LBS</td><td class="tolerance-value">±1,500 LBS</td></tr>
+                        <tr><td class="tolerance-range">100,000-149,999 LBS</td><td class="tolerance-value">±1,700 LBS</td></tr>
+                        <tr><td class="tolerance-range">150,000-199,999 LBS</td><td class="tolerance-value">±2,000 LBS</td></tr>
+                        <tr><td class="tolerance-range">≥200,000 LBS</td><td class="tolerance-value">±2,400 LBS</td></tr>
                     </table>
                 </td>
             </tr>
         </table>
         
-        <!-- 簽名欄 -->
         <table class="signature-table">
             <tr>
-                <td>
-                    <span class="signature-label">FLT CREW :</span>
-                    <div class="signature-static">教官簽名</div>
-                </td>
-                <td>
-                    <span class="signature-label">FUEL BY :</span>
-                    <div class="signature-static">機務簽名</div>
-                </td>
-                <td>
-                    <span class="signature-label">OFP TOTAL FUEL BY :</span>
-                    <div class="no-input-with-line">不用寫</div>
-                </td>
+                <td><span class="signature-label">FLT CREW :</span><div class="signature-static">教官簽名</div></td>
+                <td><span class="signature-label">FUEL BY :</span><div class="signature-static">機務簽名</div></td>
+                <td><span class="signature-label">OFP TOTAL FUEL BY :</span><div class="no-input-with-line">不用寫</div></td>
             </tr>
         </table>
     </div>
     
-    <!-- 說明和按鈕 - 只保留重設按鈕 -->
     <div class="instructions no-print">
-        <h3>使用說明</h3>
+        <h3>📐 計算公式說明 (由上至下)</h3>
         <ul>
-            <li><strong>剩餘油量 (REMAINING)</strong>: 輸入各油箱剩餘油量，系統會自動計算總和。</li>
-            <li><strong>加油後油量 (POST SERVICE)</strong>: 輸入各油箱加油後油量，系統會自動計算總和並顯示為 FINAL FUEL。</li>
-            <li><strong>加完油拿到的油單資料</strong>: 輸入加油量 (Liters)，系統會自動換算為 METERED FUEL ADDED (US GAL)。</li>
-            <li><strong>密度 (DENSITY)</strong>: 可手動調整燃油密度，預設為 6.55 LBS/GAL。</li>
-            <li><strong>*CALCULATED FUEL</strong>: 自動計算 = 剩餘油量總和 + (密度 × METERED FUEL ADDED)。</li>
-            <li><strong>DIFFERENCE</strong>: 自動計算 = CALCULATED FUEL - POST SERVICE 總和。</li>
+            <li><strong>1. METERED FUEL ADDED (US GAL)</strong> : 輸入「加完油拿到的油單資料 (Liters)」 → 公式 = 公升數 × 0.26417 → 四捨五入取整數，單位 US GAL。</li>
+            <li><strong>2. 剩餘油量總和 (TOTAL REMAINING)</strong> : 油箱1 + 油箱2 + CTR 剩餘油量 (LBS) 自動加總。</li>
+            <li><strong>3. 加油後油量總和 (TOTAL POST SERVICE)</strong> : 油箱1 + 油箱2 + CTR 加油後油量 (LBS) 自動加總，同時此數值即為「FINAL FUEL (LBS)」。</li>
+            <li><strong>4. *CALCULATED FUEL</strong> : 公式 = 剩餘油量總和 + ( 密度 LBS/GAL × METERED FUEL ADDED US GAL )，計算後四捨五入。</li>
+            <li><strong>5. DIFFERENCE</strong> : 公式 = CALCULATED FUEL - 加油後油量總和 (TOTAL POST SERVICE)。根據差值範圍自動標色（綠/橘/紅）。</li>
+            <li><strong>6. 中油油單密度 ➜ DENSITY 自動換算</strong> : 若輸入「中油油單密度 (KG/LITER)」 → 乘以 8.345 → 自動填入左側 DENSITY (LBS/GAL) 並觸發所有計算。 (例如 0.783 × 8.345 = 6.53) 。若直接修改 DENSITY 亦可，兩者獨立不互相干擾。</li>
+            <li><strong>7. 其他補充</strong> : OFP TOTAL FUEL 與 TAXI FUEL 僅供對照抄寫，不影響計算。DENSITY 預設 6.55 LBS/GAL，可手動調整。</li>
         </ul>
-        
+        <h3>💡 操作提示</h3>
+        <ul>
+            <li>✔ 所有剩餘油量 / 加油後油量 / 油單公升數 / 密度 變動時，所有相關數值會立即自動更新。</li>
+            <li>✔ 此頁面所有程式碼已內嵌，<strong>將本檔案儲存為 .html 檔案，即可在任何無網路環境下完整離線使用</strong> (包含所有計算邏輯與介面)。</li>
+            <li>✔ 「加完油拿到的油單資料」輸入公升(L) → 自動產生 METERED FUEL ADDED (US GAL)。</li>
+            <li>✔ 「中油油單密度」欄位：輸入 KG/LITER 數值(如0.783) 後按 Enter 或離開欄位，左側 DENSITY 自動換算並重算燃油數據。</li>
+        </ul>
         <div class="button-group">
             <button id="resetBtn">重設表格</button>
         </div>
@@ -935,35 +877,30 @@
         const flightDateInput = document.getElementById('flightDate');
         const ofpTotalFuelInput = document.getElementById('ofpTotalFuel');
         const taxiFuelInput = document.getElementById('taxiFuel');
+        const chinaOilDensityKgL = document.getElementById('chinaOilDensityKgL');
         
-        // 重設按鈕
         const resetBtn = document.getElementById('resetBtn');
         
         // 設定台灣當天日期
         function setTaiwanDate() {
             const now = new Date();
-            // 台灣時區 (UTC+8)
             const taiwanTime = new Date(now.getTime() + (8 * 60 * 60 * 1000));
             const year = taiwanTime.getUTCFullYear();
             const month = String(taiwanTime.getUTCMonth() + 1).padStart(2, '0');
             const day = String(taiwanTime.getUTCDate()).padStart(2, '0');
-            // 使用更簡潔的日期格式
-            const dateString = `${year}/${month}/${day}`;
-            flightDateInput.value = dateString;
+            flightDateInput.value = `${year}/${month}/${day}`;
         }
         
         // 計算METERED FUEL ADDED (升轉加侖)
         function calculateMeteredFuel() {
             const liters = parseFloat(chinaOilLitersInput.value) || 0;
-            // 1升 = 0.26417加侖
             const gallons = liters * 0.26417;
-            // 四捨五入到整數
             const roundedGallons = Math.round(gallons);
             meteredFuelAddedElement.textContent = roundedGallons.toLocaleString();
             return roundedGallons;
         }
         
-        // 計算剩餘油量總和
+        // 剩餘油量總和
         function calculateRemainingTotal() {
             let total = 0;
             remainingInputs.forEach(input => {
@@ -974,7 +911,7 @@
             return total;
         }
         
-        // 計算加油後油量總和
+        // 加油後油量總和 & FINAL FUEL
         function calculatePostServiceTotal() {
             let total = 0;
             postServiceInputs.forEach(input => {
@@ -982,51 +919,42 @@
                 total += value;
             });
             totalPostServiceElement.textContent = total.toLocaleString();
-            
-            // 更新FINAL FUEL
             finalFuelElement.textContent = total.toLocaleString();
-            
             return total;
         }
         
-        // 計算CALCULATED FUEL
+        // CALCULATED FUEL
         function calculateCalculatedFuel() {
             const remainingTotal = calculateRemainingTotal();
             const meteredFuel = calculateMeteredFuel();
             const density = parseFloat(densityInput.value) || 6.55;
-            
-            // CALCULATED FUEL = 剩餘油量總和 + (密度 * METERED FUEL ADDED)
             const calculatedFuel = remainingTotal + (density * meteredFuel);
-            calculatedFuelElement.textContent = Math.round(calculatedFuel).toLocaleString();
-            return Math.round(calculatedFuel);
+            const rounded = Math.round(calculatedFuel);
+            calculatedFuelElement.textContent = rounded.toLocaleString();
+            return rounded;
         }
         
-        // 計算DIFFERENCE
+        // DIFFERENCE 與顏色標示
         function calculateDifference() {
             const calculatedFuel = calculateCalculatedFuel();
             const postServiceTotal = calculatePostServiceTotal();
-            
-            // DIFFERENCE = CALCULATED FUEL - POST SERVICE 總量
             const difference = calculatedFuel - postServiceTotal;
+            const diffAbs = Math.abs(difference);
             differenceElement.textContent = Math.round(difference).toLocaleString();
             
-            // 根據差值設置顏色
-            const absDiff = Math.abs(difference);
-            if (absDiff > 2400) {
-                differenceElement.style.color = '#d32f2f'; // 紅色
+            if (diffAbs > 2400) {
+                differenceElement.style.color = '#d32f2f';
                 differenceElement.style.backgroundColor = '#ffebee';
-            } else if (absDiff > 800) {
-                differenceElement.style.color = '#f57c00'; // 橙色
+            } else if (diffAbs > 800) {
+                differenceElement.style.color = '#f57c00';
                 differenceElement.style.backgroundColor = '#fff3e0';
             } else {
-                differenceElement.style.color = '#388e3c'; // 綠色
+                differenceElement.style.color = '#388e3c';
                 differenceElement.style.backgroundColor = '#f1f8e9';
             }
-            
             return difference;
         }
         
-        // 執行所有計算
         function performAllCalculations() {
             calculateMeteredFuel();
             calculateRemainingTotal();
@@ -1035,14 +963,31 @@
             calculateDifference();
         }
         
-        // 重設表格
+        // 中油油單密度 -> 自動換算至左側 DENSITY (乘以8.345)
+        function syncChinaOilDensityToDensity() {
+            const val = parseFloat(chinaOilDensityKgL.value);
+            if (!isNaN(val) && val !== 0) {
+                const newDensity = val * 8.345;
+                // 保留兩位小數
+                const roundedDensity = Math.round(newDensity * 100) / 100;
+                densityInput.value = roundedDensity;
+                // 觸發全面重新計算 (因為密度改變)
+                performAllCalculations();
+            } else if (chinaOilDensityKgL.value === '') {
+                // 若清空則不改變密度，保持原本，不做任何動作
+                return;
+            }
+        }
+        
+        // 重置所有欄位
         function resetForm() {
             if (confirm('確定要重設所有資料嗎？此操作無法復原。')) {
-                // 重置所有輸入欄位
                 const allInputs = document.querySelectorAll('input[type="text"], input[type="number"]');
                 allInputs.forEach(input => {
                     if (input.id === 'density') {
                         input.value = 6.55;
+                    } else if (input.id === 'chinaOilDensityKgL') {
+                        input.value = '';
                     } else if (input.id === 'chinaOilLiters' || 
                               input.classList.contains('remaining-fuel') || 
                               input.classList.contains('post-service-fuel') ||
@@ -1053,71 +998,55 @@
                         input.value = '';
                     }
                 });
-                
-                // 重置所有計算結果
                 const resultElements = document.querySelectorAll('.result-cell, .calculation-cell');
                 resultElements.forEach(element => {
-                    if (element.id !== 'fuelType' && 
-                        element.id !== 'difference') {
+                    if (element.id !== 'difference') {
                         element.textContent = '0';
                     }
                 });
-                
-                // 重置difference顏色
                 differenceElement.style.color = '';
                 differenceElement.style.backgroundColor = '#f0ffe8';
-                
-                // 重新設定日期
+                differenceElement.textContent = '0';
                 setTaiwanDate();
-                
+                performAllCalculations();
                 alert('表格已重設！');
             }
         }
         
-        // 事件監聽器 - 自動計算
-        chinaOilLitersInput.addEventListener('input', () => {
-            performAllCalculations();
-        });
+        // 事件綁定
+        chinaOilLitersInput.addEventListener('input', performAllCalculations);
+        densityInput.addEventListener('input', performAllCalculations);
         
-        densityInput.addEventListener('input', () => {
-            performAllCalculations();
-        });
-        
-        // 為所有剩餘油量輸入框添加事件監聽
         remainingInputs.forEach(input => {
-            input.addEventListener('input', () => {
-                performAllCalculations();
-            });
+            input.addEventListener('input', performAllCalculations);
         });
-        
-        // 為所有加油後油量輸入框添加事件監聽
         postServiceInputs.forEach(input => {
-            input.addEventListener('input', () => {
+            input.addEventListener('input', performAllCalculations);
+        });
+        
+        // 中油油單密度輸入後轉換至DENSITY (並計算)
+        chinaOilDensityKgL.addEventListener('input', function() {
+            // 當輸入非數字或空白時不強制轉換，但如果有數值則轉換
+            const rawValue = chinaOilDensityKgL.value.trim();
+            if (rawValue === '') return;
+            const num = parseFloat(rawValue);
+            if (!isNaN(num)) {
+                const newDensity = num * 8.345;
+                const rounded = Math.round(newDensity * 100) / 100;
+                densityInput.value = rounded;
                 performAllCalculations();
-            });
+            }
         });
         
-        // OFP TOTAL FUEL 輸入框事件監聽
-        ofpTotalFuelInput.addEventListener('input', () => {
-            // 如果OFP TOTAL FUEL有值，可以進行相關計算
-            // 目前暫不需要特殊處理
-        });
+        // 若直接修改DENSITY，中油油單密度欄位不清除（保留，但不同步反向），避免干擾使用者習慣
+        // 額外確保若使用者重新輸入中油密度仍可正常覆蓋
         
-        // TAXI FUEL 輸入框事件監聽
-        taxiFuelInput.addEventListener('input', () => {
-            // 如果TAXI FUEL有值，可以進行相關計算
-            // 目前暫不需要特殊處理
-        });
-        
-        // 按鈕事件監聽
         resetBtn.addEventListener('click', resetForm);
         
-        // 初始化計算
         window.addEventListener('DOMContentLoaded', () => {
-            // 設置初始值
             setTaiwanDate();
             performAllCalculations();
         });
     </script>
 </body>
-</html>
+            </html>
